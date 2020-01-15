@@ -1,17 +1,26 @@
 import React from "react";
-import classes from "./App.module.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Search from "./components/Search/Search";
+import classes from "./App.module.css";
 
 const Layout: React.FC = ({ children }) => {
   return <div className={classes.App}>{children}</div>;
 };
 
-// TODO: add routing
 const App: React.FC = () => {
   return (
-    <Layout>
-      <Search />
-    </Layout>
+    <Router>
+      <Layout>
+        <Switch>
+          <Route path="/details/:id">
+            <div>coming soon!</div>
+          </Route>
+          <Route path="/" exact>
+            <Search />
+          </Route>
+        </Switch>
+      </Layout>
+    </Router>
   );
 };
 

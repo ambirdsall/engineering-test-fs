@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Property } from "../../domain/property";
 import PropertyImage from "./PropertyImage";
 
@@ -7,6 +8,8 @@ import classes from "./PropertyTable.module.css";
 type PropertyTableProps = { properties: Property[] };
 
 const PropertyTable = ({ properties }: PropertyTableProps) => {
+  const history = useHistory();
+
   return (
     <table className={classes.Table}>
       <thead>
@@ -21,7 +24,12 @@ const PropertyTable = ({ properties }: PropertyTableProps) => {
           const [lat, lng] = p.coordinates;
 
           return (
-            <tr key={p.propertyId}>
+            <tr
+              key={p.propertyId}
+              onClick={() => {
+                history.push("details/" + p.propertyId);
+              }}
+            >
               <td>
                 <PropertyImage propertyId={p.propertyId} />
               </td>
