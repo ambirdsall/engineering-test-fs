@@ -1,0 +1,43 @@
+.Container {
+    margin: auto;
+    width: fit-content;
+}
+
+.Form {
+    width: 50%;
+    margin: 1em auto;
+    padding: 1em;
+    text-align: right;
+    border: 1px solid #bbb;
+}
+
+.Form input {
+    background-color: #eee;
+    border: none;
+    border-bottom: 1px solid gray;
+    margin-top: 0.5em;
+    position: relative;
+    width: 8em;
+    text-align: right;
+}
+
+.Form input[type=submit] {
+    border: 1px solid gray;
+    margin-top: 0.5em;
+    width: fit-content;
+    padding: 10px;
+}
+
+.Form input[type=submit]:hover {
+    cursor: pointer;
+    background-color: #ded;
+}
+
+.Form label {
+    margin: 1em 0;
+    display: block;
+}
+
+.Form label:first-child {
+    margin-top: 0;
+}

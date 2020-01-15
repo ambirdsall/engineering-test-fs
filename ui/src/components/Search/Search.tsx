@@ -4,6 +4,8 @@ import { getPropertiesInArea } from "./api";
 import useInputData from "../../hooks/useInputData";
 import PropertyTable from "../../components/PropertyTable/PropertyTable";
 
+import classes from "./Search.module.css";
+
 export default function Search() {
   const [lat, onLatChanged] = useInputData(-80.0782213);
   const [lng, onLngChanged] = useInputData(26.8849731);
@@ -35,17 +37,27 @@ export default function Search() {
   }, []);
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input type="text" value={lat} onChange={onLatChanged} />
-        <input type="text" value={lng} onChange={onLngChanged} />
-        <input
-          type="number"
-          step="1000"
-          value={radius}
-          onChange={onRadiusChanged}
-        />
-        <input type="submit" />
+    <div className={classes.Container}>
+      <form className={classes.Form} onSubmit={onSubmit}>
+        <label>
+          Latitude
+          <input type="text" value={lat} onChange={onLatChanged} />
+        </label>
+        <label>
+          Longitude
+          <input name="lng " type="text" value={lng} onChange={onLngChanged} />
+        </label>
+        <label>
+          Search Radius
+          <input
+            name="radius"
+            type="number"
+            step="1000"
+            value={radius}
+            onChange={onRadiusChanged}
+          />
+        </label>
+        <input type="submit" value="Search" />
       </form>
       <PropertyTable properties={properties} />
     </div>
