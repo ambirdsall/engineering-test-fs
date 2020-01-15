@@ -1,20 +1,19 @@
 const baseUrl = 'http://localhost:1235'
-// const defaultHeaders = { "Access-Control-Allow-Origin": "*", "Content-Type": "application/x-www-form-urlencoded"}
 
-// {
-//   type: "Feature",
-//   geometry: {
-//     type: "Point",
-//     coordinates: [lat, lng]
-//   },
-//   "x-distance": radius
-// }
-
-export const Post = (url: string, data: any, options?: any) => {
-  return fetch(baseUrl + url, {
+export const Post = async (url: string, data: any, options?: any) => {
+  const response = await fetch(baseUrl + url, {
     method: "POST",
-    // headers: defaultHeaders,
     ...options,
     body: JSON.stringify(data),
-  }).then(r => r.json())
+  })
+
+  return response.json()
+}
+
+export const Get = (url: string, options?: any) => {
+  return fetch(baseUrl + url, {...options})
+}
+
+export const GetJSON = (url: string, options?: any) => {
+  Get(url, options).then(r => r.json())
 }

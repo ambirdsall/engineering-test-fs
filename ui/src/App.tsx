@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./App.module.css";
-import Search from "./containers/Search";
+import Search from "./containers/Search/Search";
 
 const Layout: React.FC = ({ children }) => {
   return <div className={classes.App}>{children}</div>;
