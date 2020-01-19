@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import usePropertyImageUrl from "../../hooks/usePropertyImageUrl";
 
 type PropertyImageProps = {
@@ -7,22 +7,27 @@ type PropertyImageProps = {
 };
 
 const PropertyImage = ({ propertyId, height }: PropertyImageProps) => {
+  const maxHeight = height || 100;
   const imageUrl = usePropertyImageUrl(propertyId);
   const imageWithOverlaysUrl = usePropertyImageUrl(propertyId, {
     withOverlays: true
   });
   const [url, setUrl] = useState(imageUrl);
-  const maxHeight = height || 100;
+  const setOverlaysImage = useCallback(() => setUrl(imageWithOverlaysUrl), [
+    imageWithOverlaysUrl
+  ]);
+  const setBareImage = useCallback(() => setUrl(imageUrl), [imageUrl]);
 
   return imageUrl ? (
     <img
       style={{ maxHeight }}
-      src={url}
+      src={url || imageUrl}
       alt="overhead shot of property"
-      onMouseEnter={() => setUrl(imageWithOverlaysUrl)}
-      onMouseLeave={() => setUrl(imageUrl)}
+      onMouseEnter={setOverlaysImage}
+      onMouseLeave={setBareImage}
     />
   ) : (
+    // TODO: actual loading spinner
     <img
       style={{ maxHeight }}
       src={`http://placekitten.com/${maxHeight}/${maxHeight}`}
