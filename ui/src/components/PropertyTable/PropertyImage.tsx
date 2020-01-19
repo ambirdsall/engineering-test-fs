@@ -1,24 +1,23 @@
 import React from "react";
 import usePropertyImage from "../../hooks/usePropertyImage";
 
-import classes from "./PropertyImage.module.css";
-
 type PropertyImageProps = {
   propertyId: string;
+  maxHeight?: number;
 };
 
-const PropertyImage = ({ propertyId }: PropertyImageProps) => {
+const PropertyImage = ({ propertyId, maxHeight }: PropertyImageProps) => {
   const image = usePropertyImage(propertyId);
 
   return image ? (
     <img
-      className={classes.Image}
+      style={{ maxHeight: maxHeight || 100 }}
       src={URL.createObjectURL(image)}
       alt="overhead shot of property"
     />
   ) : (
     <img
-      className={classes.Image}
+      style={{ maxHeight: maxHeight || 100 }}
       src="http://placekitten.com/100/100"
       alt=""
     />
