@@ -78,7 +78,7 @@ const Details: React.FC<Props> = ({ match, location }: Props) => {
   return (
     <div>
       here's to you, {id}, at {lat}/{lng}
-      <PropertyImage propertyId={id} maxHeight={300} />
+      <PropertyImage propertyId={id} height={300} />
       <StatsTable stats={stats} />
     </div>
   );

@@ -1,24 +1,31 @@
-import React from "react";
-import usePropertyImage from "../../hooks/usePropertyImage";
+import React, { useState } from "react";
+import usePropertyImageUrl from "../../hooks/usePropertyImageUrl";
 
 type PropertyImageProps = {
   propertyId: string;
-  maxHeight?: number;
+  height?: number;
 };
 
-const PropertyImage = ({ propertyId, maxHeight }: PropertyImageProps) => {
-  const image = usePropertyImage(propertyId);
+const PropertyImage = ({ propertyId, height }: PropertyImageProps) => {
+  const imageUrl = usePropertyImageUrl(propertyId);
+  const imageWithOverlaysUrl = usePropertyImageUrl(propertyId, {
+    withOverlays: true
+  });
+  const [url, setUrl] = useState(imageUrl);
+  const maxHeight = height || 100;
 
-  return image ? (
+  return imageUrl ? (
     <img
-      style={{ maxHeight: maxHeight || 100 }}
-      src={URL.createObjectURL(image)}
+      style={{ maxHeight }}
+      src={url}
       alt="overhead shot of property"
+      onMouseEnter={() => setUrl(imageWithOverlaysUrl)}
+      onMouseLeave={() => setUrl(imageUrl)}
     />
   ) : (
     <img
-      style={{ maxHeight: maxHeight || 100 }}
-      src="http://placekitten.com/100/100"
+      style={{ maxHeight }}
+      src={`http://placekitten.com/${maxHeight}/${maxHeight}`}
       alt=""
     />
   );
