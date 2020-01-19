@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Search from "./components/Search/Search";
+import Details from "./components/Details/Details";
 import classes from "./App.module.css";
 
 const Layout: React.FC = ({ children }) => {
@@ -13,7 +14,7 @@ const App: React.FC = () => {
       <Layout>
         <Switch>
           <Route path="/details/:id">
-            <div>coming soon!</div>
+            <Details />
           </Route>
           <Route path="/" exact>
             <Search />

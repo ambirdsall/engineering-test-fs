@@ -15,5 +15,9 @@ export const Get = (url: string, options?: any) => {
 }
 
 export const GetJSON = (url: string, options?: any) => {
-  Get(url, options).then(r => r.json())
+  return Get(url, options).then(r => r.json())
+}
+
+export const getPropertyImage = (propertyId: string) => {
+  return Get("/display/" + propertyId).catch(console.error);
 }

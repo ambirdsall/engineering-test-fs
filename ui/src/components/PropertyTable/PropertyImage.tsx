@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Get } from "../../api";
+import React from "react";
+import usePropertyImage from "../../hooks/usePropertyImage";
 
 import classes from "./PropertyImage.module.css";
 
@@ -8,13 +8,7 @@ type PropertyImageProps = {
 };
 
 const PropertyImage = ({ propertyId }: PropertyImageProps) => {
-  const [image, setImage] = useState<Blob | null>(null);
-
-  useEffect(() => {
-    Get("/display/" + propertyId)
-      .then(img => img.blob().then(setImage))
-      .catch(console.error);
-  }, [propertyId]);
+  const image = usePropertyImage(propertyId);
 
   return image ? (
     <img

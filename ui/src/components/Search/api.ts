@@ -11,7 +11,3 @@ export const getPropertiesInArea = (coordinates: [number, number], radius: numbe
     "x-distance": radius
   }).catch(console.error);
 }
-
-export const getPropertyImage = (propertyId: string) => {
-  return Get("/display/" + propertyId).catch(console.error);
-}
