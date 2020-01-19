@@ -20,7 +20,7 @@ const PropertyTable = ({ properties }: PropertyTableProps) => {
         className={classes.Card}
         key={p.propertyId}
         onClick={() => {
-          history.push("details/" + p.propertyId);
+          history.push("details/" + p.propertyId, { lat, lng });
         }}
       >
         <CardContent>

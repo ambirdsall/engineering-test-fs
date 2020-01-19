@@ -4,7 +4,9 @@ import PropertyImage from "../PropertyTable/PropertyImage";
 import { GetJSON as Get } from "../../api";
 import { Statistics } from "../../domain/property";
 
-type Props = RouteComponentProps<{ id: string }>;
+type Props = RouteComponentProps<{ id: string }> & {
+  location?: { state?: any };
+};
 
 const statDisplayName = (stat: keyof Statistics): string => {
   switch (stat) {
@@ -39,16 +41,18 @@ const statDisplayStat = (
   }
 };
 
-const Details: React.FC<Props> = ({ match }: Props) => {
+const Details: React.FC<Props> = ({ match, location }: Props) => {
   const { id } = match.params;
   const [stats, setStats] = useState<Statistics | null>(null);
+
+  const { lat, lng } = location.state;
 
   const StatsTable = ({ stats }: { stats: Statistics | null }) => {
     if (!stats) return null;
 
     const rows = Object.keys(stats).map(k => {
       return (
-        <>
+        <div key={k}>
           <dt>{statDisplayName(k as keyof Statistics)}</dt>
           <dd>
             {statDisplayStat(
@@ -56,7 +60,7 @@ const Details: React.FC<Props> = ({ match }: Props) => {
               stats[k as keyof Statistics]
             )}
           </dd>
-        </>
+        </div>
       );
     });
 
@@ -70,9 +74,10 @@ const Details: React.FC<Props> = ({ match }: Props) => {
     });
     // eslint-disable-next-line
   }, []);
+
   return (
     <div>
-      here's to you, {id}
+      here's to you, {id}, at {lat}/{lng}
       <PropertyImage propertyId={id} />
       <StatsTable stats={stats} />
     </div>

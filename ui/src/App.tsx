@@ -1,17 +1,13 @@
 import React from "react";
+import Container from "@material-ui/core/Container";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Search from "./components/Search/Search";
 import Details from "./components/Details/Details";
-import classes from "./App.module.css";
-
-const Layout: React.FC = ({ children }) => {
-  return <div className={classes.App}>{children}</div>;
-};
 
 const App: React.FC = () => {
   return (
     <Router>
-      <Layout>
+      <Container>
         <Switch>
           <Route path="/details/:id">
             <Details />
@@ -20,7 +16,7 @@ const App: React.FC = () => {
             <Search />
           </Route>
         </Switch>
-      </Layout>
+      </Container>
     </Router>
   );
 };

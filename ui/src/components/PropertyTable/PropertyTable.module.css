@@ -1,14 +1,15 @@
 .Card {
     height: 140px;
-    width: 320px;
+    width: 100%;
     margin: 5px;
     cursor: pointer;
 }
 
 .Card:hover {
-    border: 1px solid cadetblue;
+    outline: 1px solid cadetblue;
 }
 
 .Img {
     float: left;
+    margin-right: 1em;
 }

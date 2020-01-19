@@ -1,4 +1,4 @@
-import { Post, Get } from "../../api";
+import { Post } from "../../api";
 import { Property } from "../../domain/property";
 
 export const getPropertiesInArea = (coordinates: [number, number], radius: number): Promise<Property[]> => {
