@@ -1,0 +1,20 @@
+.Container {
+    padding: 1em;
+    margin-top: 1em;
+}
+
+.Container dt, .Container dd {
+    margin: 0;
+}
+
+.Container ul {
+    margin: 0.25em;
+}
+
+.Container p {
+    margin: 0;
+}
+
+.Container h2 {
+    margin: 0;
+}

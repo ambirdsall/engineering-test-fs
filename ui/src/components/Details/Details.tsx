@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps, useHistory } from "react-router-dom";
+import { Paper, Grid, Button } from "@material-ui/core";
 import PropertyImage from "../PropertyTable/PropertyImage";
 import { GetJSON as Get } from "../../api";
 import { Statistics } from "../../domain/property";
+
+import classes from "./Details.module.css";
 
 type Props = RouteComponentProps<{ id: string }> & {
   location?: { state?: any };
 };
 
-const statDisplayName = (stat: keyof Statistics): string => {
+const formatStatName = (stat: keyof Statistics): string => {
   switch (stat) {
     case "building_area_sqm":
       return "Building Area (in sq. mi.)";
@@ -23,19 +26,22 @@ const statDisplayName = (stat: keyof Statistics): string => {
   }
 };
 
-const statDisplayStat = (
+const clamped = (n: number) => n.toFixed(2);
+const asLi = (val: number | string) => <li>{val}</li>;
+
+const formatStatNumber = (
   statName: keyof Statistics,
   value: number | number[]
-): string => {
+) => {
   switch (statName) {
     case "building_area_sqm":
-      return (value as number[]).join();
+      return <ul>{(value as number[]).map(clamped).map(asLi)}</ul>;
     case "parcel_area_sqm":
-      return `${value}`;
+      return <ul>{asLi(clamped(value as number))}</ul>;
     case "zone_density":
-      return (value as number[]).join();
+      return <ul>{(value as number[]).map(clamped).map(asLi)}</ul>;
     case "building_distances_m":
-      return (value as number[]).join();
+      return <ul>{(value as number[]).map(clamped).map(asLi)}</ul>;
     default:
       return "";
   }
@@ -44,7 +50,7 @@ const statDisplayStat = (
 const Details: React.FC<Props> = ({ match, location }: Props) => {
   const { id } = match.params;
   const [stats, setStats] = useState<Statistics | null>(null);
-
+  const history = useHistory();
   const { lat, lng } = location.state;
 
   const StatsTable = ({ stats }: { stats: Statistics | null }) => {
@@ -53,9 +59,9 @@ const Details: React.FC<Props> = ({ match, location }: Props) => {
     const rows = Object.keys(stats).map(k => {
       return (
         <div key={k}>
-          <dt>{statDisplayName(k as keyof Statistics)}</dt>
+          <dt>{formatStatName(k as keyof Statistics)}</dt>
           <dd>
-            {statDisplayStat(
+            {formatStatNumber(
               k as keyof Statistics,
               stats[k as keyof Statistics]
             )}
@@ -64,7 +70,25 @@ const Details: React.FC<Props> = ({ match, location }: Props) => {
       );
     });
 
-    return <dl>{rows}</dl>;
+    const coords = (
+      <>
+        <dt>Latitude</dt>
+        <dd>
+          <ul>{asLi(lat)}</ul>
+        </dd>
+        <dt>Longitude</dt>
+        <dd>
+          <ul>{asLi(lng)}</ul>
+        </dd>
+      </>
+    );
+
+    return (
+      <dl>
+        {coords}
+        {rows}
+      </dl>
+    );
   };
 
   useEffect(() => {
@@ -76,11 +100,23 @@ const Details: React.FC<Props> = ({ match, location }: Props) => {
   }, []);
 
   return (
-    <div>
-      here's to you, {id}, at {lat}/{lng}
-      <PropertyImage propertyId={id} height={300} />
-      <StatsTable stats={stats} />
-    </div>
+    <Paper className={classes.Container}>
+      <Grid container spacing={2}>
+        <Grid item container xs={12} md={4} direction="column">
+          <PropertyImage propertyId={id} height={300} />
+          <Button
+            style={{ marginTop: "1em" }}
+            onClick={() => history.push("/")}
+          >
+            Back
+          </Button>
+        </Grid>
+        <Grid item container xs={12} md={8}>
+          <h2>Property {id}</h2>
+          <StatsTable stats={stats} />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 

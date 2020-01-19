@@ -27,7 +27,7 @@ const PropertyImage = ({ propertyId, height }: PropertyImageProps) => {
       onMouseLeave={setBareImage}
     />
   ) : (
-    // TODO: actual loading spinner
+    // TODO: use an actual loading spinner instead
     <img
       style={{ maxHeight }}
       src={`http://placekitten.com/${maxHeight}/${maxHeight}`}
