@@ -43,49 +43,48 @@ export default function Search() {
     // eslint-disable-next-line
   }, []);
 
+  const searchForm = (
+    <Grid item xs={12} sm={4}>
+      <form className={classes.Form} onSubmit={onSubmit}>
+        <TextField
+          id="latitude"
+          label="Latitude"
+          type="number"
+          size="small"
+          margin="normal"
+          value={lat}
+          onChange={onLatChanged}
+        />
+        <TextField
+          id="longitude"
+          label="Longitude"
+          type="number"
+          size="small"
+          margin="normal"
+          value={lng}
+          onChange={onLngChanged}
+        />
+        <TextField
+          id="radius"
+          label="Search Radius"
+          type="number"
+          size="small"
+          margin="normal"
+          inputProps={{ step: "1000" }}
+          value={radius}
+          onChange={onRadiusChanged}
+        />
+        <Button type="submit" value="Search" variant="contained" color="primary">
+          Search
+        </Button>
+      </form>
+    </Grid>
+  );
+
   return (
     <Grid container>
       {offset}
-      <Grid item xs={12} sm={4}>
-        <form className={classes.Form} onSubmit={onSubmit}>
-          <TextField
-            id="latitude"
-            label="Latitude"
-            type="number"
-            size="small"
-            margin="normal"
-            value={lat}
-            onChange={onLatChanged}
-          />
-          <TextField
-            id="longitude"
-            label="Longitude"
-            type="number"
-            size="small"
-            margin="normal"
-            value={lng}
-            onChange={onLngChanged}
-          />
-          <TextField
-            id="radius"
-            label="Search Radius"
-            type="number"
-            size="small"
-            margin="normal"
-            inputProps={{ step: "1000" }}
-            value={radius}
-            onChange={onRadiusChanged}
-          />
-          <Button
-            type="submit"
-            value="Search"
-            variant="contained"
-            color="primary"
-          >
-            Search
-          </Button>
-        </form>
-      </Grid>
+      {searchForm}
       <Grid
         container
         item
