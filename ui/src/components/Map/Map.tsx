@@ -6,6 +6,13 @@ import { Bounds } from "../../types/map";
 import { Property } from "../../domain/property";
 import Marker from "./Marker";
 
+// Obviously, leaving an API key in plain text on a public github repo is not
+// professional-level operational security! In a professional situation, I would
+// expect the API key and any other credential to be injected as an environment
+// variable in the build process, or in an encrypted secrets file, or, well,
+// something. But I have not authorized the associated google account with
+// automatic billing, so I'm willing to risk the map API rate-limit errors if
+// malefactors get their hands on this key.
 const API_KEY = "AIzaSyBpPVPeXWKvY-UxSTDD0FcOY-c17Z5nyl8";
 const [height, width] = [300, 300];
 
