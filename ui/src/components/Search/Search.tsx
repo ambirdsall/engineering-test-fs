@@ -4,7 +4,7 @@ import { Property } from "../../domain/property";
 import { getPropertiesInArea } from "./api";
 import useInputData from "../../hooks/useInputData";
 import PropertyTable from "../../components/PropertyTable/PropertyTable";
-import Map from "./Map";
+import Map from "../Map/Map";
 
 import classes from "./Search.module.css";
 

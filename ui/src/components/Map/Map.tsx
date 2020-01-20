@@ -1,10 +1,10 @@
 import React from "react";
 import GoogleMap from "google-map-react";
-import { Bounds } from "../../types/map";
-import { Property } from "../../domain/property";
 import { fitBounds } from "google-map-react/utils";
 
-import classes from "./Map.module.css";
+import { Bounds } from "../../types/map";
+import { Property } from "../../domain/property";
+import Marker from "./Marker";
 
 const API_KEY = "AIzaSyBpPVPeXWKvY-UxSTDD0FcOY-c17Z5nyl8";
 const [height, width] = [300, 300];
@@ -13,10 +13,6 @@ type MapProps = {
   bounds: Bounds;
   properties?: Property[];
   setHighlighted?: Function;
-};
-
-const Marker = (props: any) => {
-  return <div className={classes.Marker} {...props} />;
 };
 
 const Map = ({ bounds, properties, setHighlighted }: MapProps) => {
@@ -40,16 +36,10 @@ const Map = ({ bounds, properties, setHighlighted }: MapProps) => {
         {properties.map(p => (
           <Marker
             key={p.propertyId}
-            className={classes.Marker}
-            style={{
-              backgroundColor: p.isHighlighted ? "blue" : "cadetblue",
-              zIndex: p.isHighlighted ? 1 : 0
-            }}
+            property={p}
             lat={p.coordinates[0]}
             lng={p.coordinates[1]}
-            onMouseEnter={() => setHighlighted(p.propertyId)}
-            onMouseLeave={() => setHighlighted("")}
-            name={p.propertyId}
+            setHighlighted={setHighlighted}
           />
         ))}
       </GoogleMap>
