@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from "react";
 import usePropertyImageUrl from "../../hooks/usePropertyImageUrl";
 
-type PropertyImageProps = {
+type Props = {
   propertyId: string;
   height?: number;
 };
 
-const PropertyImage = ({ propertyId, height }: PropertyImageProps) => {
+const PropertyImage: React.FC<Props> = ({ propertyId, height }) => {
   const maxHeight = height || 100;
   const imageUrl = usePropertyImageUrl(propertyId);
   const imageWithOverlaysUrl = usePropertyImageUrl(propertyId, {
