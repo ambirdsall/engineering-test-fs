@@ -7,18 +7,23 @@ import CardContent from "@material-ui/core/CardContent";
 
 import classes from "./PropertyTable.module.css";
 
-type PropertyTableProps = { properties: Property[] };
+type PropertyTableProps = { properties: Property[]; setHighlighted?: Function };
 
-const PropertyTable = ({ properties }: PropertyTableProps) => {
+const PropertyTable = ({ properties, setHighlighted }: PropertyTableProps) => {
   const history = useHistory();
 
   const propertyCards = properties.map(p => {
     const [lat, lng] = p.coordinates;
+    const className = p.isHighlighted
+      ? [classes.Card, classes.callout].join(" ")
+      : classes.Card;
 
     return (
       <Card
-        className={classes.Card}
+        className={className}
         key={p.propertyId}
+        onMouseEnter={() => setHighlighted(p.propertyId)}
+        onMouseLeave={() => setHighlighted("")}
         onClick={() => {
           history.push("details/" + p.propertyId, { lat, lng });
         }}

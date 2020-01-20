@@ -16,7 +16,7 @@ const usePropertyImageUrl = (
     )
       .then(img => img.blob().then(setImage))
       .catch(console.error);
-  }, [propertyId]);
+  }, [propertyId, withOverlays]);
 
   return image ? URL.createObjectURL(image) : "";
 };
